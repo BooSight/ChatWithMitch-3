@@ -22,7 +22,7 @@ class MyAccountManager(BaseUserManager):
         user.save(using=self._db)
         return user
 
-    def create_superuser(self, email, username,password):
+    def create_superuser(self, email, username, password):
         user = self.create_user(
             email=self.normalize_email(email),
             username=username,
@@ -36,11 +36,11 @@ class MyAccountManager(BaseUserManager):
         
 
 
-def get_profile_image_filepath(self):
-    return f'profile_images/{self.pk}/{"profile_image.png"}'
+def get_profile_image_filepath(self, filename):
+    return 'profile_images/' + str(self.pk) + '/profile_image.png'
 
 def get_default_profile_image():
-    return "codingwithmitch/logo_1080_1080.png"
+    return "codingwithmitch/default_profile_image.png"
 
 class Account(AbstractBaseUser):
 
@@ -53,6 +53,7 @@ class Account(AbstractBaseUser):
     is_staff        = models.BooleanField(default=False)
     is_superuser    = models.BooleanField(default=False)
     profile_image   = models.ImageField(max_length=255, upload_to=get_profile_image_filepath, null=True, blank=True, default=get_default_profile_image)
+    hide_email      = models.BooleanField(default=True)
 
     objects = MyAccountManager()
 
@@ -65,7 +66,7 @@ class Account(AbstractBaseUser):
     def get_profile_image_filename(self):
         return str(self.profile_image)[str(self.profile_image).index('profile_images/{self.pk}/'):]
 
-    def has_perm(self, parm, obj=None):
+    def has_perm(self, perm, obj=None):
         return self.is_admin
 
     def has_module_perms(self, app_label):

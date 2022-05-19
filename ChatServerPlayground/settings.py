@@ -26,6 +26,9 @@ SECRET_KEY = 't+j=t*@qbxfxpl+cn4v$1n01$ter$+p3phme%rkrbrup13wfnr'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
+if DEBUG:
+    EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend' #development ONLY
+
 ALLOWED_HOSTS = []
 
 AUTH_USER_MODEL = "account.Account"
@@ -123,7 +126,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Etc/GMT-4'
 
 USE_I18N = True
 
@@ -131,6 +134,7 @@ USE_L10N = True
 
 USE_TZ = True
 
+DATA_UPLOAD_MAX_MEMORY_SIZE = 10485760 # 10mb = 10 * 1024 *1024
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
