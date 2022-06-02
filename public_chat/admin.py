@@ -38,10 +38,10 @@ class CachingPaginator(Paginator):
     count = property(_get_count)
 
 class PublicRoomChatMessageAdmin(admin.ModelAdmin):
-    list_filter = ['room',  'user', "timestamp"]
-    list_display = ['room',  'user', 'content',"timestamp"]
+    list_filter = ['room',  'user', 'timestamp']
+    list_display = ['room',  'user', 'timestamp', 'content']
     search_fields = ['room__title', 'user__username','content']
-    readonly_fields = ['id', "user", "room", "timestamp"]
+    readonly_fields = ['id', 'user', 'room', 'timestamp']
 
     show_full_result_count = False
     paginator = CachingPaginator
@@ -51,4 +51,12 @@ class PublicRoomChatMessageAdmin(admin.ModelAdmin):
 
 
 admin.site.register(PublicRoomChatMessage, PublicRoomChatMessageAdmin)
+
+
+
+
+
+
+
+
 

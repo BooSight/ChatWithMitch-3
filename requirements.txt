@@ -56,8 +56,6 @@ entrypoints==0.4
 executing==0.8.3
 fonttools==4.30.0
 future==0.18.2
-gazebo-plugins==2.9.2
-gazebo-ros==2.9.2
 gencpp==0.6.5
 geneus==3.0.0
 genlisp==0.4.18
@@ -154,7 +152,6 @@ PyYAML==6.0
 pyzmq==22.3.0
 qt-dotgraph==0.4.2
 qt-gui==0.4.2
-qt-gui-cpp==0.4.2
 qt-gui-py-common==0.4.2
 requests @ file:///tmp/build/80754af9/requests_1608241421344/work
 resource-retriever==1.12.7
@@ -186,7 +183,6 @@ rqt-dep==0.4.12
 rqt-graph==0.4.14
 rqt-gui==0.5.3
 rqt-gui-py==0.5.3
-rqt-image-view==0.4.16
 rqt-launch==0.4.9
 rqt-logger-level==0.4.11
 rqt-moveit==0.5.10
@@ -202,7 +198,6 @@ rqt-robot-dashboard==0.5.8
 rqt-robot-monitor==0.5.14
 rqt-robot-steering==0.5.12
 rqt-runtime-monitor==0.5.9
-rqt-rviz==0.7.0
 rqt-service-caller==0.4.10
 rqt-shell==0.4.11
 rqt-srv==0.4.9

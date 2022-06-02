@@ -11,7 +11,6 @@ https://docs.djangoproject.com/en/2.2/ref/settings/
 """
 
 import os
-from telnetlib import AUTHENTICATION
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -26,10 +25,11 @@ SECRET_KEY = 't+j=t*@qbxfxpl+cn4v$1n01$ter$+p3phme%rkrbrup13wfnr'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
+
 if DEBUG:
     EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend' #development ONLY
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["*"]######################################
 
 AUTH_USER_MODEL = "account.Account"
 AUTHENTICATION_BACKENDS = (
@@ -53,6 +53,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'channels',
+    'django.contrib.humanize',
 ]
 
 MIDDLEWARE = [
@@ -85,6 +87,18 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'ChatServerPlayground.wsgi.application'
 
+ASGI_APPLICATION = 'ChatServerPlayground.routing.application'
+
+CHANNEL_LAYERS = {
+    'default': {
+        'BACKEND': 'channels_redis.core.RedisChannelLayer',
+        'CONFIG': {
+            "hosts": [('127.0.0.1', 6379)],
+        },
+    },
+}
+
+DEFAULT_AUTO_FIELD='django.db.models.AutoField'####################
 
 # Database
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
