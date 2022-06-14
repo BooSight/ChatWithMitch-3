@@ -8,7 +8,7 @@ class PublicChatRoom(models.Model):
 	title 				= models.CharField(max_length=255, unique=True, blank=False,)
 
 	# all users who are authenticated and viewing the chat
-	users 				= models.ManyToManyField(settings.AUTH_USER_MODEL, help_text="users who are connected to chat room.", blank=True, null=True)
+	users 				= models.ManyToManyField(settings.AUTH_USER_MODEL, help_text="users who are connected to chat room.", blank=True)
 
 	def __str__(self):
 		return self.title
@@ -53,6 +53,7 @@ class PublicRoomChatMessageManager(models.Manager):
     def by_room(self, room):
         qs = PublicRoomChatMessage.objects.filter(room=room).order_by("-timestamp")
         return qs
+
 
 class PublicRoomChatMessage(models.Model):
     """

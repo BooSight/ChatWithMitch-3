@@ -45,6 +45,8 @@ INSTALLED_APPS = [
     'account',
     'friend',
     'public_chat',
+    'chat',
+    'notification',
 
     # Third party apps
     'django.contrib.admin',

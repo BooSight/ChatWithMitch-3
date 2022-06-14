@@ -4,15 +4,14 @@ from django.core.serializers import serialize
 from channels.generic.websocket import AsyncJsonWebsocketConsumer
 from channels.db import database_sync_to_async
 import json
-from django.contrib.auth import get_user_model
-from django.contrib.humanize.templatetags.humanize import naturalday
+
 from django.utils import timezone
-from datetime import datetime
 
 from public_chat.constants import *
 from public_chat.models import PublicChatRoom, PublicRoomChatMessage
+from chat.exceptions import ClientError
+from chat.utils import calculate_timestamp
 
-User = get_user_model()
 import os
 os.environ["DJANGO_ALLOW_ASYNC_UNSAFE"] = "true"
 
@@ -37,7 +36,7 @@ class PublicChatConsumer(AsyncJsonWebsocketConsumer):
 		Called when the WebSocket closes for any reason.
 		"""
 		# leave the room
-		print("PublicChatConsumer: disconnect aaaaaaaaaaaaaaaaaaaaaa")
+		print("PublicChatConsumer: disconnect")
 		try:
 			if self.room_id != None:
 				await self.leave_room(self.room_id)
@@ -310,29 +309,6 @@ def get_room_chat_messages(room, page_number):
 		return None
 
 
-class ClientError(Exception):
-    """
-    Custom exception class that is caught by the websocket receive()
-    handler and translated into a send back to the client.
-    """
-    def __init__(self, code, message):
-        super().__init__(code)
-        self.code = code
-        if message:
-        	self.message = message
-
-
-def calculate_timestamp(timestamp):
-	# today or yesterday
-	if ((naturalday(timestamp) == "today") or (naturalday(timestamp) == "yesterday")):
-		str_time = datetime.strftime(timestamp, "%I:%M %p")
-		str_time = str_time.strip("0")
-		ts = f"{naturalday(timestamp)} at {str_time}"
-	# other day
-	else:
-		str_time = datetime.strftime(timestamp, "%m/%d/%Y")
-		ts = f"{str_time}"
-	return ts
 
 
 class LazyRoomChatMessageEncoder(Serializer):
